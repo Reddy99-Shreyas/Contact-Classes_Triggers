@@ -1,0 +1,5 @@
+trigger sendEmail on Contact (After insert) {
+    if(Trigger.isAfter && Trigger.isInsert){
+        ContactTriggerHandler.sendEmailClass(Trigger.new);
+    }
+}

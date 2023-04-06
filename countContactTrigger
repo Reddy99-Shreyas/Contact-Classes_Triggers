@@ -1,0 +1,22 @@
+trigger ContactTrigger on Contact (after insert,after Delete, after Undelete,after Update) {
+    
+    //whenever contact getting "INSERTED", we need to increment the value on Account object(No of Contacts field)
+    if(Trigger.isAfter && Trigger.isInsert){
+        CountContactTriggerHandler.aftIns(Trigger.new);
+    }
+    
+    //when Ever contact getting "DELETED" we need to decrement the value on Account Record(No of Contacts field)
+    if(Trigger.isAfter && Trigger.isDelete){
+        CountContactTriggerHandler.aftDel(Trigger.old);
+    }
+    
+    //when ever contact getting "UNDELETED" we need to increment the value on Account record1(No of Contacts field)
+    if(Trigger.isAfter && Trigger.isUndelete){
+        CountContactTriggerHandler.aftUnDel(Trigger.new);
+    }
+    
+    //when ever contact gets "REPARENTED", we need to decrement the value on Account Record1(No of Contacts field) and increment the value on Account Record2(No of Contacts field)
+    if(Trigger.isAfter && Trigger.isUpdate){
+        CountContactTriggerHandler.aftUpdate(Trigger.new, Trigger.oldMap);
+    }
+}
